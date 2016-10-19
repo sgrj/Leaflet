@@ -10,7 +10,7 @@ var _touchstart = Browser.msPointer ? 'MSPointerDown' : Browser.pointer ? 'point
     _pre = '_leaflet_';
 
 // inspired by Zepto touch code by Thomas Fuchs
-export function addDoubleTapListener (obj, handler, id) {
+export function addDoubleTapListener(obj, handler, id) {
 	var last, touch,
 	    doubleTap = false,
 	    delay = 250;
@@ -22,7 +22,7 @@ export function addDoubleTapListener (obj, handler, id) {
 			if (!Browser.edge && e.pointerType === 'mouse') {
 				return;
 			}
-			count = L.DomEvent._pointersCount;
+			count = _pointersCount;
 		} else {
 			count = e.touches.length;
 		}
@@ -39,7 +39,7 @@ export function addDoubleTapListener (obj, handler, id) {
 
 	function onTouchEnd() {
 		if (doubleTap && !touch.cancelBubble) {
-			if (L.Browser.pointer) {
+			if (Browser.pointer) {
 				// work around .type being readonly with MSPointer* events
 				var newTouch = {},
 				    prop, i;
@@ -73,7 +73,7 @@ export function addDoubleTapListener (obj, handler, id) {
 	return this;
 }
 
-export function removeDoubleTapListener (obj, id) {
+export function removeDoubleTapListener(obj, id) {
 	var touchstart = obj[_pre + _touchstart + id],
 	    touchend = obj[_pre + _touchend + id],
 	    dblclick = obj[_pre + 'dblclick' + id];
