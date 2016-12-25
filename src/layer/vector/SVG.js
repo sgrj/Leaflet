@@ -87,6 +87,8 @@ L.SVG = L.Renderer.extend({
 	_initPath: function (layer) {
 		var path = layer._path = L.SVG.create('path');
 
+		path._customClasses = layer.options.className;
+
 		// @namespace Path
 		// @option className: String = null
 		// Custom class name set on an element. Only for SVG renderer.
@@ -153,6 +155,22 @@ L.SVG = L.Renderer.extend({
 		} else {
 			path.setAttribute('fill', 'none');
 		}
+
+		if (path._customClasses == options.className) {
+			return;
+		}
+
+		if (path._customClasses) {
+			path._customClasses.trim().split(/\s+/).forEach(function(className) {
+				L.DomUtil.removeClass(path, className);
+			});
+		}
+
+		if (options.className) {
+			L.DomUtil.addClass(path, options.className);
+		}
+
+		path._customClasses = options.className;
 	},
 
 	_updatePoly: function (layer, closed) {
