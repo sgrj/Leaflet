@@ -27,7 +27,6 @@
   "scripts": {
     "test": "jake test",
     "build": "jake build",
-    "postinstall": "jake build",
     "release": "./build/publish.sh"
   },
   "eslintConfig": {
